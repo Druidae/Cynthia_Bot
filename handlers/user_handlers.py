@@ -1,9 +1,9 @@
 from aiogram import Router
-from aiogram.types import Message
+from aiogram.types import Message, CallbackQuery
 from aiogram.filters import CommandStart, Command, Text
 
 from lexicon.lexicon_ru import LEXICON_RU
-from keyboards.keyboards import yes_no_keyboard, game_keyboard
+from keyboards.keyboards import yes_no_keyboard, game_keyboard, start_keyboard
 from services.services import get_bot_choise, get_winner
 
 
@@ -12,13 +12,18 @@ router : Router = Router()
 # Triggered by /start command
 @router.message(CommandStart())
 async def process_start_command(message: Message):
-    await message.answer(text=LEXICON_RU['/start'], reply_markup=yes_no_keyboard)
+    await message.answer(text=LEXICON_RU['/start'], reply_markup=start_keyboard)
 
 # Triggered by /help command
 @router.message(Command(commands=['help']))
 async def process_help_command(message: Message):
     await message.answer(text=LEXICON_RU['/help'])
 
+# Triggered by /game command
+@router.message(Command(commands=['game']))
+@router.message(Text(text=LEXICON_RU['start_game']))
+async def process_game_command(message: Message):
+    await message.answer(text=LEXICON_RU['/game'], reply_markup=yes_no_keyboard)
 # Triggered when user send yes
 @router.message(Text(text=LEXICON_RU['yes_button']))
 async def process_yes_unswer(message: Message):

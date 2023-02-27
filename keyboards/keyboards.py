@@ -1,8 +1,19 @@
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
+from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardButton, InlineKeyboardMarkup
 from aiogram.utils.keyboard import ReplyKeyboardBuilder
 
 from lexicon.lexicon_ru import LEXICON_RU
 
+
+""" This keyboard will be used for start command"""
+game_botton : KeyboardButton = KeyboardButton(text=LEXICON_RU['start_game'])
+
+start_keyboard_bilder : ReplyKeyboardBuilder = ReplyKeyboardBuilder()
+start_keyboard_bilder.row(
+    game_botton,
+    width=3
+)
+start_keyboard : ReplyKeyboardMarkup = start_keyboard_bilder.as_markup()
+""" This keyboard will be used for playing in rock, scissors and paper"""
 # Create Yes/No button
 button_yes : KeyboardButton = KeyboardButton(text=LEXICON_RU['yes_button'])
 button_no : KeyboardButton = KeyboardButton(text=LEXICON_RU['no_button'])
