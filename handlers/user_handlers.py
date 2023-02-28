@@ -11,6 +11,7 @@ router : Router = Router()
 
 # Triggered by /start command
 @router.message(CommandStart())
+@router.message(Text(text=LEXICON_RU['back_to_main']))
 async def process_start_command(message: Message):
     await message.answer(text=LEXICON_RU['/start'], reply_markup=start_keyboard)
 
